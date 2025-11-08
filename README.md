@@ -1,6 +1,6 @@
 # Smart Budget Tracker
 
-Created by **Maged Mehrza**.
+Created by **Mohammed Mehrza**.
 
 A responsive budget dashboard that helps track income and expenses, visualize a real-time balance, and compare performance with the previous month. Data persists in the browser so you can close the tab and continue later.
 
@@ -34,3 +34,4 @@ styles.css     # Styling and responsive layout
 script.js      # Application logic and state management
 README.md      # Project overview and usage instructions
 ```
+
