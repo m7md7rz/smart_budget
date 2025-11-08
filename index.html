@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Budget Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <h1>Smart Budget Tracker</h1>
+      <p>Stay on top of your income and expenses with a clear, responsive dashboard.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="summary" aria-labelledby="summary-title">
+      <h2 id="summary-title">Overview</h2>
+      <div class="summary-cards">
+        <article class="card balance">
+          <h3>Net Balance</h3>
+          <p id="balance-amount" class="amount">$0.00</p>
+          <span id="balance-trend" class="trend">&nbsp;</span>
+        </article>
+        <article class="card income">
+          <h3>Total Income</h3>
+          <p id="income-amount" class="amount">$0.00</p>
+        </article>
+        <article class="card expense">
+          <h3>Total Expenses</h3>
+          <p id="expense-amount" class="amount">$0.00</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="add-transaction-title">
+      <h2 id="add-transaction-title">Add Transaction</h2>
+      <form id="transaction-form" autocomplete="off">
+        <div class="field-group">
+          <label for="type">Type</label>
+          <select id="type" name="type" required>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="category">Category</label>
+          <input id="category" name="category" type="text" placeholder="e.g. Salary" required />
+        </div>
+        <div class="field-group">
+          <label for="amount">Amount</label>
+          <input id="amount" name="amount" type="number" step="0.01" min="0.01" placeholder="e.g. 200.00" required />
+        </div>
+        <div class="field-group">
+          <label for="date">Date</label>
+          <input id="date" name="date" type="date" required />
+        </div>
+        <div class="field-group field-group--wide">
+          <label for="note">Note (optional)</label>
+          <input id="note" name="note" type="text" placeholder="e.g. Monthly salary" />
+        </div>
+        <button type="submit" class="primary-button">Save Transaction</button>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="filters-title">
+      <h2 id="filters-title">Filters</h2>
+      <div class="filters">
+        <div class="field-group">
+          <label for="filter-type">Type</label>
+          <select id="filter-type">
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="filter-month">Month</label>
+          <input id="filter-month" type="month" />
+        </div>
+        <div class="field-group field-group--wide">
+          <label for="search">Search</label>
+          <input id="search" type="search" placeholder="Search category or note" />
+        </div>
+        <button id="reset-filters" type="button" class="secondary-button">Reset Filters</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-labelledby="transactions-title">
+      <div class="panel-header">
+        <h2 id="transactions-title">Transactions</h2>
+        <span id="transaction-count" class="muted-text"></span>
+      </div>
+      <div class="table-wrapper">
+        <table aria-describedby="transactions-title">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Type</th>
+              <th scope="col">Category</th>
+              <th scope="col">Note</th>
+              <th scope="col" class="numeric">Amount</th>
+              <th scope="col" class="numeric">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="transaction-body">
+            <tr class="empty-row">
+              <td colspan="6">No transactions yet. Add one above to get started.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <template id="transaction-row-template">
+    <tr>
+      <td data-col="date"></td>
+      <td data-col="type"></td>
+      <td data-col="category"></td>
+      <td data-col="note"></td>
+      <td data-col="amount" class="numeric"></td>
+      <td class="numeric">
+  <button type="button" class="icon-button" data-action="edit" title="Edit transaction">Edit</button>
+  <button type="button" class="icon-button" data-action="delete" title="Delete transaction">Delete</button>
+      </td>
+    </tr>
+  </template>
+
+  <dialog id="edit-dialog">
+    <form method="dialog" id="edit-form">
+      <h3>Edit Transaction</h3>
+      <div class="field-group">
+        <label for="edit-type">Type</label>
+        <select id="edit-type" required>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="edit-category">Category</label>
+        <input id="edit-category" type="text" required />
+      </div>
+      <div class="field-group">
+        <label for="edit-amount">Amount</label>
+        <input id="edit-amount" type="number" step="0.01" min="0.01" required />
+      </div>
+      <div class="field-group">
+        <label for="edit-date">Date</label>
+        <input id="edit-date" type="date" required />
+      </div>
+      <div class="field-group field-group--wide">
+        <label for="edit-note">Note</label>
+        <input id="edit-note" type="text" />
+      </div>
+      <menu class="dialog-actions">
+        <button value="cancel" class="secondary-button">Cancel</button>
+        <button value="confirm" class="primary-button">Update</button>
+      </menu>
+    </form>
+  </dialog>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
